@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LinguaAI · Design System</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cairo:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          teal: { 50:'#EFFCFB',100:'#D4F6F3',200:'#AEEEEA',300:'#7BE2DC',400:'#4ECDC4',500:'#2FB8AE',600:'#1F9A92',700:'#1B7B75',800:'#1A625E',900:'#19514E' },
+          coral:{ 50:'#FFF1F6',100:'#FFE0EC',200:'#FFC2D9',300:'#FF9CBE',400:'#FF6B9D',500:'#F84785',600:'#E42168',700:'#BF1453',800:'#9E1448',900:'#85143F' },
+          sun:  { 100:'#FFF4D6',400:'#FFD166',500:'#FBBF24' },
+          ink:  { 50:'#F8FAFB',100:'#F1F4F6',200:'#E4E9EE',300:'#CBD4DC',400:'#94A3B0',500:'#64748B',600:'#475569',700:'#334155',800:'#1E293B',900:'#0F1B2A' },
+          grass:{ 50:'#ECFDF3',100:'#D1FADF',400:'#34D399',500:'#22C55E',600:'#16A34A',700:'#15803D' },
+          rose: { 50:'#FEF2F2',100:'#FEE2E2',400:'#F87171',500:'#EF4444',600:'#DC2626',700:'#B91C1C' },
+          // Dark surface tokens
+          night:{ 950:'#070C16', 900:'#0A1220', 800:'#131C2E', 700:'#1B2638', 600:'#2A3548', 500:'#3A4660' },
+        },
+        fontFamily: {
+          sans:    ['Inter','Plus Jakarta Sans','system-ui','sans-serif'],
+          display: ['Plus Jakarta Sans','Inter','system-ui','sans-serif'],
+          ar:      ['Cairo','Tajawal','sans-serif'],
+          mono:    ['JetBrains Mono','ui-monospace','monospace'],
+        },
+        boxShadow: {
+          soft:'0 1px 2px rgba(16,24,40,.04), 0 4px 16px rgba(16,24,40,.06)',
+          lift:'0 2px 4px rgba(16,24,40,.05), 0 12px 32px rgba(16,24,40,.10)',
+          glow:'0 8px 28px rgba(79,205,196,.35)',
+          coral:'0 8px 24px rgba(255,107,157,.35)',
+          'soft-dark':'0 2px 8px rgba(0,0,0,.35), 0 12px 32px rgba(0,0,0,.5)',
+        },
+        borderRadius:{ '4xl':'2rem' },
+        keyframes: {
+          'fade-up':{'0%':{opacity:0,transform:'translateY(8px)'},'100%':{opacity:1,transform:'translateY(0)'}},
+          'fade-in':{'0%':{opacity:0},'100%':{opacity:1}},
+          'flame':{'0%,100%':{transform:'scale(1) rotate(-2deg)'},'50%':{transform:'scale(1.07) rotate(2deg)'}},
+          'shimmer':{'100%':{transform:'translateX(100%)'}},
+          'rec':{'0%,100%':{transform:'scale(1)',opacity:1},'50%':{transform:'scale(.85)',opacity:.6}},
+        },
+        animation: {
+          'fade-up':'fade-up .5s cubic-bezier(.16,1,.3,1) both',
+          'fade-in':'fade-in .4s ease both',
+          'flame':'flame 1.6s ease-in-out infinite',
+          'rec':'rec 1s ease-in-out infinite',
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  html, body { margin:0; background:#F8FAFB; scroll-behavior:smooth; }
+  body { font-family:'Inter',system-ui,sans-serif; color:#0F1B2A; -webkit-font-smoothing:antialiased; }
+  ::selection { background:#AEEEEA; }
+  [dir="rtl"] .keep-latin { font-family:'Inter',sans-serif; }
+  .font-ar { font-family:'Cairo','Tajawal',sans-serif; }
+  /* shimmer skeleton */
+  .skeleton{ position:relative; overflow:hidden; background:#E4E9EE; }
+  .skeleton::after{ content:''; position:absolute; inset:0; transform:translateX(-100%);
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent); animation:shimmer 1.4s infinite; }
+  .skeleton-dark{ position:relative; overflow:hidden; background:#2A3548; }
+  .skeleton-dark::after{ content:''; position:absolute; inset:0; transform:translateX(-100%);
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.10),transparent); animation:shimmer 1.4s infinite; }
+  /* anchored sections offset for sticky nav */
+  section[id]{ scroll-margin-top:1rem; }
+  /* token row */
+  .tok-row{ display:grid; grid-template-columns: 64px 1fr 1fr; gap:1rem; align-items:center; padding:.65rem .25rem; border-bottom:1px solid #F1F4F6; }
+  .tok-row:last-child{ border-bottom:0; }
+  .mono{ font-family:'JetBrains Mono',ui-monospace,monospace; font-size:12.5px; }
+  /* hide scrollbar for chip rails */
+  .no-scrollbar::-webkit-scrollbar{display:none}
+  .no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="icons.jsx"></script>
+<script type="text/babel" src="ds/utils.jsx"></script>
+<script type="text/babel" src="ds/foundations.jsx"></script>
+<script type="text/babel" src="ds/components.jsx"></script>
+<script type="text/babel" src="ds/rtl.jsx"></script>
+<script type="text/babel" src="ds/screens.jsx"></script>
+<script type="text/babel" src="ds/system-extras.jsx"></script>
+<script type="text/babel" src="ds/app.jsx"></script>
+</body>
+</html>
